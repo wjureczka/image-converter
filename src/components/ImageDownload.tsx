@@ -35,8 +35,8 @@ const AvailableConversionOptions = styled.ul`
   margin-top: var(--margin-m);
 `;
 
-const ConversionOption = styled.li<{ loading: boolean }>`
-  cursor: ${({ loading }) => (loading ? "progress" : "pointer")};
+const ConversionOption = styled.li<{ isLoading: boolean }>`
+  cursor: ${({ isLoading }) => (isLoading ? "progress" : "pointer")};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -232,7 +232,7 @@ const ImageDownload = () => {
         <AvailableConversionOptions>
           {Object.entries(imagesConversionStrategies).map(
             ([type, callback]) => (
-              <ConversionOption key={type} loading={loading}>
+              <ConversionOption key={type} isLoading={loading}>
                 {type}
                 <ConversionButton
                   onClick={() => callback(image)}
