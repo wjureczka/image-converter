@@ -8,20 +8,30 @@ const AppContainer = styled.main`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  margin-left: var(--margin-xl);
-  margin-right: var(--margin-xl);
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1024px;
+
+  @media screen and (min-width: var(--screen-tablet)) {
+    margin-left: var(--margin-xxl);
+    margin-right: var(--margin-xxl);
+  }
 `;
 
 const AppHeader = styled.h1`
   font-size: var(--font-size-h1);
   margin-top: var(--margin-xl);
+  color: var(--font-white);
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const ContentContainer = styled.div`
   height: 100%;
-  display: grid;
-  grid-auto-flow: column;
-  grid-gap: var(--margin-xxl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--margin-xxl);
   margin-top: var(--margin-xxl);
 `;
 
