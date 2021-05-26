@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { ImagesContext, ImageType } from "../context/ImagesContext";
 import SettingsIcon from "@material-ui/icons/Settings";
 import styled from "@emotion/styled";
+import { keyframes } from "@emotion/react";
 
 const createDownloadAnchor = (dataURL: string, extension: string) => {
   const anchor = document.createElement("a");
@@ -35,7 +36,31 @@ const AvailableConversionOptions = styled.ul`
   margin-top: var(--margin-m);
 `;
 
-const ConversionOption = styled.li<{ isLoading: boolean }>`
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-20px) rotateX(-120deg);
+  }
+  
+  to {
+    opacity: 1;
+    transform: translateY(0px) rotateX(0deg);
+  }
+`;
+
+const ConversionButton = styled.button`
+  background-color: var(--interactive-silent);
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  text-transform: uppercase;
+  color: var(--font-color-primary);
+  font-weight: 800;
+  box-shadow: 0 3px 1px rgba(0, 0, 0, 0.2);
+  transition: all 225ms;
+`;
+
+const ConversionOption = styled.li<{ isLoading: boolean; count: number }>`
   cursor: ${({ isLoading }) => (isLoading ? "progress" : "pointer")};
   display: flex;
   justify-content: space-between;
@@ -49,21 +74,18 @@ const ConversionOption = styled.li<{ isLoading: boolean }>`
   backface-visibility: hidden;
   -webkit-font-smoothing: subpixel-antialiased;
   text-transform: uppercase;
+  opacity: 0;
+  animation: ${fadeIn} 225ms ease-in forwards;
+  animation-delay: ${({ count }) => `${count * 70}ms`};
 
   &:hover {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.7);
     transform: scale(1.02) translateZ(0);
-  }
-`;
 
-const ConversionButton = styled.button`
-  background-color: var(--interactive-silent);
-  border: none;
-  border-radius: 8px;
-  padding: 16px;
-  text-transform: uppercase;
-  color: var(--font-color-primary);
-  font-weight: 800;
+    button {
+      box-shadow: 0 3px 2px rgba(0, 0, 0, 0.4);
+    }
+  }
 `;
 
 const convertBaseImageType = (
@@ -231,8 +253,12 @@ const ImageDownload = () => {
       {!!image && (
         <AvailableConversionOptions>
           {Object.entries(imagesConversionStrategies).map(
-            ([type, callback]) => (
-              <ConversionOption key={type} isLoading={loading}>
+            ([type, callback], index) => (
+              <ConversionOption
+                key={type}
+                isLoading={loading}
+                count={index + 1}
+              >
                 {type}
                 <ConversionButton
                   onClick={() => callback(image)}
