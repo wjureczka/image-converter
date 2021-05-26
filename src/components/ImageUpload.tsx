@@ -24,8 +24,6 @@ const ImageInputLabel = styled.label<{ hasImage: boolean }>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: ${({ hasImage }) =>
-    hasImage ? "transparent" : "var(--fill-white)"};
   box-shadow: ${({ hasImage }) => (hasImage ? "none" : "var(--shadow)")};
   border: ${({ hasImage }) =>
     hasImage ? "none" : "2px dashed var(--interactive-loud)"};
@@ -46,7 +44,7 @@ const ImageInputLabel = styled.label<{ hasImage: boolean }>`
       hasImage ? "none" : "0 5px 7px rgba(0, 0, 0, 0.5)"};
 
     svg {
-      transform: translateY(-10px);
+      transform: scale(1.2);
     }
   }
 `;
@@ -92,7 +90,7 @@ const ImageUpload = () => {
         {!image && (
           <>
             <PublishIcon />
-            <div>Drag your image or click to upload</div>
+            <div>Click to upload</div>
           </>
         )}
 
