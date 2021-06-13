@@ -26,7 +26,6 @@ declare global {
 
 (function () {
   window.PDF().then((mod) => {
-    console.log("PDF INSTANCE INITIATED");
     window.PDF_INSTANCE = {
       ...mod,
       create_pdf_image: mod.cwrap("create_pdf_image", "", [
