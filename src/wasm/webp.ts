@@ -25,22 +25,16 @@ declare global {
   window.WEBP().then((mod) => {
     window.WEBP_INSTANCE = {
       ...mod,
-      // @ts-ignore
       create_buffer: mod.cwrap("create_buffer", "number", ["number", "number"]),
-      // @ts-ignore
       destroy_buffer: mod.cwrap("destroy_buffer", "", ["number"]),
-      // @ts-ignore
       encode: mod.cwrap("encode", "number", [
         "number",
         "number",
         "number",
         "number",
       ]),
-      // @ts-ignore
       get_result_pointer: mod.cwrap("get_result_pointer", "number", []),
-      // @ts-ignore
       get_result_size: mod.cwrap("get_result_size", "number", []),
-      // @ts-ignore
       free_result: mod.cwrap("free_result", "", ["number"]),
     };
   });
